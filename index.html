@@ -105,7 +105,7 @@
           return parseInt(Math.random() * 15);
         },
         response() {
-          if(document.getElementById("res").value == ""){
+          if(document.getElementById("res").value == "" && this.t != -1){
              return;
           }
           if (this.calc()) {
