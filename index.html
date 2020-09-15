@@ -82,6 +82,7 @@
           this.temp()
           document.getElementById("stt").disabled = true;
           document.getElementById("res").disabled = false;
+          document.getElementById("res").focus();
           this.setNumber();
         },
         temp(){
@@ -110,10 +111,11 @@
           } else {
             this.setHtml("red");
           }
-            document.getElementById("hist").innerHTML += this.html;
-            this.html = "";
-            this.res = "";
-            this.times++;
+          document.getElementById("hist").innerHTML += this.html;
+          this.html = "";
+          this.res = "";
+          this.times++;
+          document.getElementById("res").focus();
           if(this.times < 15){
             this.setNumber();
             this.t = 10;
