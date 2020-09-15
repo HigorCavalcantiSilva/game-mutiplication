@@ -105,6 +105,9 @@
           return parseInt(Math.random() * 15);
         },
         response() {
+          if(document.getElementById("res").value == ""){
+             return;
+          }
           if (this.calc()) {
             this.points++;
             this.setHtml("green");
