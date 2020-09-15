@@ -38,12 +38,7 @@
             <h4 class="alert-heading">{{n1}} x {{n2}} é igual a:</h4>
           </div>
           <div class="row">
-            <div class="col-6">
-              <input type="number" v-model="res" class="form-control" placeholder="Sua Resposta" id="res" disabled>
-            </div>
-            <div class="col-6">
-              <input type="submit" @click="response()" class="btn btn-success" style="width: 100%;" value="Enviar">
-            </div>
+            <input type="number" v-model="res" @input="verify()" class="form-control" placeholder="Sua Resposta" id="res" disabled>
           </div>
           <hr>
           <div class="row">
@@ -103,6 +98,12 @@
         },
         getNumber() {
           return parseInt(Math.random() * 15);
+        },
+        verify(){
+          let n = String(this.res).length
+          if(n == String(this.n1 * this.n2).length){
+            this.response()
+          }
         },
         response() {
           if (this.calc()) {
