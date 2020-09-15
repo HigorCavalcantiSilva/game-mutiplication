@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Multiplicação</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #CCC;
+    }
+
+    #panel {
+      position: absolute;
+      top: 50%;
+      width: 90%;
+      margin-top: -270px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="container">
+      <div style="text-align: center; background-color: beige; height: 40px; padding-top: 7px;">
+        Desenvolvido Por Higor Cavalcanti Silva
+      </div>
+      <div class="card text-center" id="panel">
+        <div class="card-body">
+          <h2 class="card-title">Hora de Multiplicar!</h2>
+          <p>Clique em <b>INICIAR</b>, depois disso você terá <b>10 SEGUNDOS</b> para responder a multiplicação que aparecerá no quadro azul.</p>
+          <input type="button" value="INICIAR" id="stt" @click="start()" class="btn btn-primary">
+          <br><br>
+          <p style="color: blue; font-weight: bold;">Tempo = 0:{{t}}</p>
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">{{n1}} x {{n2}} é igual a:</h4>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <input type="number" v-model="res" class="form-control" placeholder="Sua Resposta" id="res" disabled>
+            </div>
+            <div class="col-6">
+              <input type="submit" @click="response()" class="btn btn-success" style="width: 100%;" value="Enviar">
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-6" style="border-right: 2px solid cornflowerblue">
+              <h4>Pontos</h4>
+              <br>
+              <h3 style="color: blue;">{{points}}/15</h3>
+            </div>
+            <div class="col-6">
+              <h4>Histórico</h4>
+              <ul id="hist"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        t: "00",
+        points: 0,
+        times: 0,
+        n1: 0,
+        n2: 0,
+        res: null,
+        html: "",
+        interval: null
+      },
+      methods: {
+        start() {
+          this.t = 10;
+          this.temp()
+          document.getElementById("stt").disabled = true;
+          document.getElementById("res").disabled = false;
+          this.setNumber();
+        },
+        temp(){
+          this.interval = setInterval(()=>{
+            this.t = parseInt(this.t) - 1;
+            if(this.t == -1){
+              this.res = "Null";
+              this.response();
+            }
+            if(this.t < 10){
+              this.t = "0" + this.t;
+            }
+          }, 1000)
+        },
+        setNumber() {
+          this.n1 = this.getNumber();
+          this.n2 = this.getNumber();
+        },
+        getNumber() {
+          return parseInt(Math.random() * 15);
+        },
+        response() {
+          if (this.calc()) {
+            this.points++;
+            this.setHtml("green");
+          } else {
+            this.setHtml("red");
+          }
+            document.getElementById("hist").innerHTML += this.html;
+            this.html = "";
+            this.res = "";
+            this.times++;
+          if(this.times < 15){
+            this.setNumber();
+            this.t = 10;
+          } else {
+            clearInterval(this.interval);
+            this.t = 0;
+            if(this.points <= 5){
+              alert("Hmmm, você acertou " + this.points + " de 15... Vamos Estudaaaaar!!! Compartilhe este link com seus amigos para desafiar eles também hehehe");
+            } else if(this.points <= 12){
+              alert("Aí sim, você acertou " + this.points + " de 15... Boa tentativa!!! Compartilhe este link com seus amigos para desafiar eles também hehehe");
+            } else {
+              alert("Excelente! Você acertou " + this.points + " de 15... Agora compartilhe este link com seus amigos para desafiar eles também hehehe");
+            }
+          }
+        },
+        setHtml(color) {
+          this.html = `<li style="color: ${color}; text-align: left">${this.n1} x ${this.n2} = ${this.res}</li>`;
+        },
+        calc() {
+          if (this.n1 * this.n2 == this.res) {
+            return true;
+          }
+          return false;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
