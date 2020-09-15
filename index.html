@@ -78,7 +78,7 @@
       },
       methods: {
         start() {
-          this.t = 3;
+          this.t = 10;
           this.temp()
           document.getElementById("stt").disabled = true;
           document.getElementById("res").disabled = false;
@@ -121,7 +121,7 @@
           document.getElementById("res").focus();
           if(this.times < 15){
             this.setNumber();
-            this.t = 3;
+            this.t = 10;
           } else {
             clearInterval(this.interval);
             this.t = "00";
