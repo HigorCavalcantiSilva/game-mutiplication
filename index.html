@@ -52,7 +52,7 @@
               <ul id="hist"></ul>
             </div>
             <div class="col-12">
-              <h3 id="tp" style="display: none;">Você gastou {{temp}} segundos</h3>
+              <h3 id="tp" style="display: none;">Você gastou {{tempo}} segundos</h3>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@
         res: null,
         html: "",
         interval: null,
-        temp: 0
+        tempo: 0
       },
       methods: {
         start() {
@@ -86,7 +86,7 @@
         },
         temp(){
           this.interval = setInterval(()=>{
-            this.temp++;
+            this.tempo++;
             this.t = parseInt(this.t) - 1;
             if(this.t == -1){
               this.res = "Null";
