@@ -14,7 +14,7 @@
     #panel {
       position: absolute;
       top: 50%;
-      width: 90%;
+      width: 80%;
       margin-top: -270px;
     }
   </style>
@@ -23,10 +23,10 @@
 <body>
 
   <div id="app">
+    <div style="text-align: center; background-color: beige; height: 40px; padding-top: 7px;">
+      Desenvolvido Por Higor Hicker
+    </div>
     <div class="container">
-      <div style="text-align: center; background-color: beige; height: 40px; padding-top: 7px;">
-        Desenvolvido Por Higor Hicker
-      </div>
       <div class="card text-center" id="panel">
         <div class="card-body">
           <h2 class="card-title">Hora de Multiplicar!</h2>
@@ -51,6 +51,9 @@
               <h4>Histórico</h4>
               <ul id="hist"></ul>
             </div>
+            <div class="col-12">
+              <h3 id="tp" style="display: none;">Você gastou {{temp}} segundos</h3>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +72,8 @@
         n2: 0,
         res: null,
         html: "",
-        interval: null
+        interval: null,
+        temp: 0
       },
       methods: {
         start() {
@@ -82,6 +86,7 @@
         },
         temp(){
           this.interval = setInterval(()=>{
+            this.temp++;
             this.t = parseInt(this.t) - 1;
             if(this.t == -1){
               this.res = "Null";
@@ -131,6 +136,7 @@
               alert("Excelente! Você acertou " + this.points + " de 15... Agora compartilhe este link com seus amigos para desafiar eles também hehehe");
             }
           document.getElementById("res").blur();
+          document.getElementById("tp").style.display = "block";
           }
         },
         setHtml(color) {
